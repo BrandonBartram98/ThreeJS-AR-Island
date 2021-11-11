@@ -1,6 +1,5 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 import * as ZapparThree from "@zappar/zappar-threejs";
 
@@ -10,37 +9,27 @@ import * as ZapparThree from "@zappar/zappar-threejs";
 // Debug
 const gui = new dat.GUI()
 
+// Renderer
+const renderer = new THREE.WebGLRenderer()
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+document.body.appendChild(renderer.domElement)
+renderer.setSize(window.innerWidth, window.innerHeight)
+window.addEventListener("resize", () => {
+    renderer.setSize(window.innerWidth, window.innerHeight)
+});
+ZapparThree.glContextSet(renderer.getContext())
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
 
-/**
- * Sizes
- */
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
-
-window.addEventListener('resize', () =>
-{
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
-
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
-
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
-
-// Create a camera and set the scene background to the camera's backgroundTexture
-let camera = new ZapparThree.Camera();
+// Camera
+let camera = new ZapparThree.Camera({
+    zNear: 0.1,
+    zFar: 500,
+});
 scene.background = camera.backgroundTexture;
 
 // Request camera permissions and start the camera
@@ -49,33 +38,17 @@ ZapparThree.permissionRequestUI().then(granted => {
     else ZapparThree.permissionDeniedUI();
 });
 
-// Controls
-const controls = new OrbitControls(camera, canvas)
-controls.enableDamping = true
-
-/**
- * Renderer
- */
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
-})
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-/**
- * Animate
- */
+// Animate
 const clock = new THREE.Clock()
 
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
-    // Update controls
-    controls.update()
-
     // Render
     renderer.render(scene, camera)
+
+    camera.updateFrame(renderer);
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
