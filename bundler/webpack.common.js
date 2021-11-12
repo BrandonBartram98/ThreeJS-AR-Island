@@ -79,7 +79,7 @@ module.exports = {
             },
             // Zappar
             {
-                test: /zcv\.wasm$/,
+                test: /zcv.*\.wasm$/,
                 type: "javascript/auto",
                 loader: "file-loader"
             }

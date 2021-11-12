@@ -19,9 +19,6 @@ window.addEventListener("resize", () => {
 });
 ZapparThree.glContextSet(renderer.getContext())
 
-// Canvas
-const canvas = document.querySelector('canvas.webgl')
-
 // Scene
 const scene = new THREE.Scene()
 
