@@ -1,8 +1,8 @@
 # Zappar WebAR ThreeJS Template
 
 A template for zappar threejs webAR instant/world tracking projects
-Uses Zappar beta branch
-change to v0.3.26 in package.json to switch to stable
+<br>
+Uses Zappar beta branch, change to v0.3.26 in package.json to switch to stable
 
 ## Install Instructions
 
