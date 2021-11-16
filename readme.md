@@ -1,3 +1,4 @@
+## Zappar WebAR ThreeJS Template
 
 ``` bash
 # Install dependencies (only the first time)
