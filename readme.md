@@ -10,3 +10,4 @@ npm run dev
 # Build for production in the dist/ directory
 npm run build
 ```
+A template for zappar threejs webAR projects
