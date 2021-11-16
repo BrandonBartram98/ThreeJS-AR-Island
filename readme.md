@@ -1,6 +1,6 @@
-## Zappar WebAR ThreeJS Template
+# Zappar WebAR ThreeJS Template
 
-# A template for zappar threejs webAR projects
+## A template for zappar threejs webAR projects
 
 ``` bash
 # Install dependencies (only the first time)
