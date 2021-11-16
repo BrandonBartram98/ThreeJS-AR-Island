@@ -1,5 +1,7 @@
 ## Zappar WebAR ThreeJS Template
 
+#A template for zappar threejs webAR projects
+
 ``` bash
 # Install dependencies (only the first time)
 npm install
@@ -10,4 +12,3 @@ npm run dev
 # Build for production in the dist/ directory
 npm run build
 ```
-A template for zappar threejs webAR projects
