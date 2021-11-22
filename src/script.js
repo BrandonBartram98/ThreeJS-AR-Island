@@ -6,7 +6,7 @@ import * as ZapparThree from "@zappar/zappar-threejs";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { gsap } from 'gsap'
 
-let model1
+let model1, boat
 
 /**
  * Base
@@ -132,7 +132,8 @@ gltfLoader.load(
     {
         gltf.scene.scale.set(0, 0, 0)
         model1 = gltf.scene
-        
+        console.log(model1)
+        boat = model1.children[14]
         instantTrackerGroup.add(model1)
     }
 )
@@ -200,11 +201,18 @@ let currentIntersect = null
 
 const tick = () =>
 {
+    const elapsedTime = clock.getElapsedTime()
+
+
     if (!hasPlaced) {
         instantTrackerGroup.setAnchorPoseFromCameraOffset(0, 0, -4)
     }
+    else {
+        boat.position.x = Math.cos(elapsedTime * 0.2) * 8
+        boat.position.z = Math.sin(elapsedTime * 0.2) * 8
+        boat.rotation.y = -(elapsedTime * 0.2)
+    }
 
-    const elapsedTime = clock.getElapsedTime()
 
     raycaster.setFromCamera(mouse, camera)
 
