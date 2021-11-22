@@ -54,7 +54,7 @@ const instantTrackerGroup = new ZapparThree.InstantWorldAnchorGroup(
 )
 
 const geometry = new THREE.BoxGeometry( 1.7, 0.17, 1.7 );
-const material = new THREE.MeshBasicMaterial( {color: 0xff9100, wireframe: true} );
+const material = new THREE.MeshBasicMaterial( {color: 0x0080ff, wireframe: true} );
 const cube = new THREE.Mesh( geometry, material );
 instantTrackerGroup.add( cube );
 
@@ -64,16 +64,7 @@ gltfLoader.load(
     {
         gltf.scene.scale.set(0.0001, 0.0001, 0.0001)
         model1 = gltf.scene
-        const modelPosition = gui.addFolder('Model Position')
-        modelPosition.add(model1.position, 'x', -5, 5).step(0.001).listen()
-        modelPosition.add(model1.position, 'y', -5, 5).step(0.001).listen()
-        modelPosition.add(model1.position, 'z', -5, 5).step(0.001).listen()
-        const modelScale = gui.addFolder('Model Scale')
-        modelScale.add(model1.scale, 'x', -0.5, 0.5).step(0.001).listen()
-        modelScale.add(model1.scale, 'y', -0.5, 0.5).step(0.001).listen()
-        modelScale.add(model1.scale, 'z', -0.5, 0.5).step(0.001).listen()
-        gui.add(model1, 'wireframe')
-        gui.add(obj, 'toggleWireframe')
+        
         instantTrackerGroup.add(model1)
     }
 )
@@ -114,6 +105,16 @@ placeButton.addEventListener("click", () => {
     cube.visible = false
     gsap.to(model1.scale, {duration: 2, x: 0.08, y: 0.08, z: 0.08})
     gsap.to(model1.rotation, {duration: 2, y: 12.58})
+    const modelPosition = gui.addFolder('Model Position')
+        modelPosition.add(model1.position, 'x', -5, 5).step(0.001).listen()
+        modelPosition.add(model1.position, 'y', -5, 5).step(0.001).listen()
+        modelPosition.add(model1.position, 'z', -5, 5).step(0.001).listen()
+        const modelScale = gui.addFolder('Model Scale')
+        modelScale.add(model1.scale, 'x', -0.2, 0.2).step(0.001).listen()
+        modelScale.add(model1.scale, 'y', -0.2, 0.2).step(0.001).listen()
+        modelScale.add(model1.scale, 'z', -0.2, 0.2).step(0.001).listen()
+        gui.add(model1, 'wireframe')
+        gui.add(obj, 'toggleWireframe')
     placeButton.remove()
 })
 
