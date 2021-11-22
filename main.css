@@ -26,7 +26,7 @@ body {
 }
 #tap-to-place {
     position: fixed;
-    bottom: 60px;
+    bottom: 100px;
     left: 50%;
     right: 0px;
     background: black;
