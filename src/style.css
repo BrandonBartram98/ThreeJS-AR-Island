@@ -42,3 +42,22 @@ body {
     font-size: small;
     border-radius: 15px;
 }
+
+#tap-to-reset {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    right: 0px;
+    background: black;
+    color: white;
+    width: 150px;
+    margin-left: -75px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: small;
+    border-radius: 15px;
+}

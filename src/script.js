@@ -8,11 +8,9 @@ import { gsap } from 'gsap'
 
 let model1, boat
 
-/**
- * Base
- */
-
+// HTML
 const placeButton = document.getElementById("tap-to-place") || document.createElement("div")
+const resetButton = document.getElementById("tap-to-reset") || document.createElement("div")
 
 // Debug
 const gui = new dat.GUI()
@@ -105,24 +103,24 @@ const instantTrackerGroup = new ZapparThree.InstantWorldAnchorGroup(
   instantTracker
 )
 
-const geometry = new THREE.BoxGeometry( 1.7, 0.17, 1.7 );
-const material = new THREE.MeshBasicMaterial( {color: 0x0080ff, wireframe: true} );
-const cube = new THREE.Mesh( geometry, material );
-instantTrackerGroup.add( cube );
+const geometry = new THREE.BoxGeometry( 1.7, 0.17, 1.7 )
+const material = new THREE.MeshBasicMaterial( {color: 0x0080ff, wireframe: true} )
+const cube = new THREE.Mesh( geometry, material )
+instantTrackerGroup.add( cube )
 
-const geometry2 = new THREE.SphereGeometry( 10, 16, 8 );
-const material2 = new THREE.MeshBasicMaterial( {color: 0xff78d9} );
-const hotspot1 = new THREE.Mesh( geometry2, material2 );
+const geometry2 = new THREE.SphereGeometry( 10, 16, 8 )
+const material2 = new THREE.MeshBasicMaterial( {color: 0xff78d9} )
+const hotspot1 = new THREE.Mesh( geometry2, material2 )
 
-instantTrackerGroup.add( hotspot1 );
+instantTrackerGroup.add( hotspot1 )
 hotspot1.scale.set(0, 0, 0)
 hotspot1.position.set(-0.2, 0.3, 0)
 
-const geometry3 = new THREE.SphereGeometry( 10, 16, 8 );
-const material3 = new THREE.MeshBasicMaterial( {color: 0xff78d9} );
-const hotspot2 = new THREE.Mesh( geometry3, material3 );
+const geometry3 = new THREE.SphereGeometry( 10, 16, 8 )
+const material3 = new THREE.MeshBasicMaterial( {color: 0xff78d9} )
+const hotspot2 = new THREE.Mesh( geometry3, material3 )
 
-instantTrackerGroup.add( hotspot2 );
+instantTrackerGroup.add( hotspot2 )
 hotspot2.scale.set(0, 0, 0)
 hotspot2.position.set(0.25, 0.25, 0)
 
@@ -160,7 +158,7 @@ const obj = {
 const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 )
 scene.add( directionalLight )
 
-const light = new THREE.AmbientLight( 0xffffff, 0.8 )
+const light = new THREE.AmbientLight( 0xffffff, 0.6 )
 scene.add( light )
 
 scene.add(instantTrackerGroup)
@@ -172,14 +170,12 @@ placeButton.addEventListener("click", () => {
     hasPlaced = true
     cube.visible = false
 
-    gsap.to(model1.scale, {duration: 2, x: 0.08, y: 0.08, z: 0.08})
-    gsap.to(model1.rotation, {duration: 2, y: 12.58})
-
-    gsap.to(hotspot1.scale, {duration: 0.5, delay: 2, x: 0.005, y: 0.005, z: 0.005})
-    gsap.to(hotspot2.scale, {duration: 0.5, delay: 2.5, x: 0.005, y: 0.005, z: 0.005, onComplete: function(){
-        model1.attach(hotspot1)
-        model1.attach(hotspot2)
+    gsap.to(model1.scale, {duration: 2, x: 0.08, y: 0.08, z: 0.08, onComplete: function() {
+        gsap.to(hotspot1.scale, {duration: 0.5, x: 0.005, y: 0.005, z: 0.005})
+        gsap.to(hotspot2.scale, {duration: 0.5, delay: 0.5, x: 0.005, y: 0.005, z: 0.005})
+        resetButton.style.display = "block"
     }})
+    gsap.to(model1.rotation, {duration: 2, y: 12.58})
 
     const modelPosition = gui.addFolder('Model Position')
     modelPosition.add(model1.position, 'x', -5, 5).step(0.001).listen()
@@ -192,7 +188,20 @@ placeButton.addEventListener("click", () => {
     gui.add(model1, 'wireframe')
     gui.add(obj, 'toggleWireframe')
 
-    placeButton.remove()
+    
+    placeButton.style.display = "none"
+})
+
+resetButton.addEventListener("click", () => {
+    resetButton.style.display = "none"
+    placeButton.style.display = "block"
+    gsap.to(hotspot1.scale, {duration: 0.5, x: 0, y: 0, z: 0})
+    gsap.to(hotspot2.scale, {duration: 0.5, x: 0, y: 0, z: 0})
+    gsap.to(model1.scale, {duration: 0.5, x: 0, y: 0, z: 0, onComplete: function() {
+        hasPlaced = false
+        cube.visible = true
+    }})
+    gsap.to(model1.rotation, {duration: 0.5, y: 0})
 })
 
 // Animate
