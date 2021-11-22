@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 import * as dat from 'lil-gui'
 import * as ZapparThree from "@zappar/zappar-threejs";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
@@ -16,6 +17,8 @@ const placeButton = document.getElementById("tap-to-place") || document.createEl
 // Debug
 const gui = new dat.GUI()
 gui.close()
+const stats = new Stats();
+document.body.appendChild( stats.dom );
 
 let manager = new ZapparThree.LoadingManager()
 const gltfLoader = new GLTFLoader(manager)
@@ -230,6 +233,8 @@ const tick = () =>
     renderer.render(scene, camera)
 
     camera.updateFrame(renderer)
+
+    stats.update();
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
