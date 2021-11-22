@@ -29,14 +29,16 @@ body {
     bottom: 60px;
     left: 50%;
     right: 0px;
-    background: white;
-    color: black;
-    width: 200px;
-    margin-left: -100px;
+    background: black;
+    color: white;
+    width: 150px;
+    margin-left: -75px;
     text-align: center;
-    padding: 15px;
+    padding: 10px;
     box-sizing: border-box;
     font-family: sans-serif;
     font-weight: bold;
     text-transform: uppercase;
+    font-size: small;
+    border-radius: 15px;
 }
