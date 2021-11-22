@@ -1,4 +1,4 @@
-# Zappar WebAR ThreeJS Testing
+# Zappar WebAR Island Scene
 
 Testing for zappar threejs webAR instant/world tracking projects
 <br>
